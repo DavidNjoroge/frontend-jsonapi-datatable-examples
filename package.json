@@ -5,10 +5,13 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
+    "start:react": "nx run react-frontend:serve",
     "test": "nx test"
   },
   "private": true,
   "dependencies": {
+    "antd": "^4.16.13",
+    "axios": "^0.22.0",
     "core-js": "^3.6.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
