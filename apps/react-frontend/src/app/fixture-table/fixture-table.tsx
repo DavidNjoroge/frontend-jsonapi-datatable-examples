@@ -2,15 +2,30 @@ import { Table } from 'antd';
 import { useState } from 'react';
 import './fixture-table.module.scss';
 
-/* eslint-disable-next-line */
-export interface FixtureTableProps {}
+
+export interface FixtureTableRow {
+  id: number;
+  key: number;
+  away_score?: string;
+  fixture_date: string;
+  fixture_time?: string;
+  home_score?: string;
+  match_week?: string;
+  results?: string;
+  away_id: number;
+  home_id: number;
+}
+
+export interface FixtureTableProps {
+  fixtures?: FixtureTableRow[]
+}
 
 export function FixtureTable(props: FixtureTableProps) {
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>()
   const columns = [
     {
       title: 'Fixture Date',
-      dataIndex: 'fixtureDate',
+      dataIndex: 'fixture_date',
       filters: [
         {
           text: 'Edward King 0',
@@ -24,20 +39,20 @@ export function FixtureTable(props: FixtureTableProps) {
     // sortDirections: ['descend'],
     },
     {
-      title: 'Home',
-      dataIndex: 'home',
+      title: 'Home Name',
+      dataIndex: 'home_id',
     },
     {
       title: 'Home Score',
-      dataIndex: 'homeScore',
+      dataIndex: 'home_score',
     },
     {
       title: 'Away Score',
-      dataIndex: 'awayScore',
+      dataIndex: 'away_score',
     },
     {
       title: 'Away Name',
-      dataIndex: 'awayName',
+      dataIndex: 'away_id',
     },
   ];
 
@@ -82,18 +97,9 @@ export function FixtureTable(props: FixtureTableProps) {
       },
     ],
   };
-  const data = [];
-  for (let i = 0; i < 46; i++) {
-    data.push({
-      key: i,
-      name: `Edward King ${i}`,
-      age: 32,
-      address: `London, Park Lane no. ${i}`,
-    });
-  }
 
   return (
-    <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+    <Table rowSelection={rowSelection} columns={columns} dataSource={props.fixtures} />
   );
 }
 

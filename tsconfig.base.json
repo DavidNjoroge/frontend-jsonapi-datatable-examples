@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@frontend-workspace/interfaces": ["libs/interfaces/src/index.ts"],
       "@frontend-workspace/react-ui": ["libs/react-ui/src/index.ts"]
     }
   },

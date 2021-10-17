@@ -1,15 +1,16 @@
-import { Button, Card, Input, Tag } from 'antd';
-import FixtureTable from '../../fixture-table/fixture-table';
+import { Button, Input, Tag } from 'antd';
+import FixtureTable, { FixtureTableRow } from '../../fixture-table/fixture-table';
 import './fixtures-page.module.scss';
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import ApiService from '../../apis/api-service';
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { convertFixturesToFixturesRows } from './utils';
 
 /* eslint-disable-next-line */
 export interface FixturesPageProps {}
 
 
 export function FixturesPage(props: FixturesPageProps) {
+  const [fixtures, setFixtures] = useState<FixtureTableRow[]>([])
 
   useEffect(() => {
     fetchFixtures()
@@ -22,6 +23,7 @@ export function FixturesPage(props: FixturesPageProps) {
       .fetchFixtures()
       .then((response: any) => {
         console.log('response', response);
+        setFixtures(convertFixturesToFixturesRows(response.data))
       });
   }
   return (
@@ -35,7 +37,7 @@ export function FixturesPage(props: FixturesPageProps) {
       <br/>
 
         <Button type="primary">Add filter</Button>
-        <FixtureTable />
+        <FixtureTable fixtures={fixtures} />
     </div>
   );
 }

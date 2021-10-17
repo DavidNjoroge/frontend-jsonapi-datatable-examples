@@ -1,3 +1,4 @@
+import { JsonapiResponse } from "../interfaces/jsonapi-response";
 import request from "./request";
 
 
@@ -10,7 +11,7 @@ function get(id: any) {
 
 function create({subject, content}: any): Promise<any> {
   return request({
-    url:    '/message/create',
+    url:    '/jsonapi/fixtures',
     method: 'POST',
     data:   {
       subject,
@@ -19,9 +20,9 @@ function create({subject, content}: any): Promise<any> {
   });
 }
 
-function fetchFixtures(): Promise<any> {
+function fetchFixtures(): Promise<JsonapiResponse> {
   return request({
-    url:    '/api/fixtures',
+    url:    '/jsonapi/fixtures',
     method: 'GET',
   });
 }

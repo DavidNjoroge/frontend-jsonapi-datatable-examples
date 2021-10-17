@@ -8,7 +8,11 @@ import axios, { AxiosRequestConfig }     from 'axios'
  * Create an Axios Client with defaults
  */
 const client = axios.create({
-  baseURL: 'http://localhost:5001'
+  baseURL: 'http://localhost:5001',
+  headers: {
+    'Content-Type': 'application/vnd.api+json',
+    'Accept': 'application/vnd.api+json'
+}
 });
 
 
