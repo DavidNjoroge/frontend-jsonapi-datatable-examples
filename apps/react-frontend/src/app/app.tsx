@@ -1,8 +1,12 @@
 import { Layout, Menu } from 'antd';
 import axios from 'axios';
+import { useEffect } from 'react';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
+import ApiService from './apis/api-service';
 import styles from './app.module.scss';
 import appRoutes from './appRoutes';
+import { FixturesPage } from './pages/fixtures-page/fixtures-page';
+
 
 const client = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com/posts"
@@ -10,6 +14,19 @@ const client = axios.create({
 
 export function App() {
   const { Header, Content, Footer } = Layout;
+
+  useEffect(() => {
+    // fetchFixtures()
+  }, [])
+
+  const fetchFixtures = () => {
+    ApiService
+      .fetchFixtures()
+      .then((response: any) => {
+        console.log('response', response);
+      });
+    }
+
   return (
     <div className={styles.app}>
       <Layout className="layout">
@@ -41,7 +58,7 @@ export function App() {
               <Route
                 key={index}
                 path={route.path}
-                render={route.component}
+                component={route.component}
               />
             ))
           }
@@ -50,6 +67,7 @@ export function App() {
             to={{pathname: appRoutes[0].path}}
           />
         </Switch>
+        {/* <FixturesPage /> */}
       </div>
 
     </Content>
