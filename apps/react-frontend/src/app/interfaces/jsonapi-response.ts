@@ -1,5 +1,6 @@
 export interface JsonapiResponse {
   data: JsonapiModelResponse[];
+  included?: JsonapiModelResponse[];
   jsonapi: {version: string};
   links: {self: string};
   meta: {count: number};
@@ -11,6 +12,7 @@ export interface JsonapiModelResponse {
   id: number;
   type: string;
   links: {self: string};
+  relationships: any;
 }
 
 

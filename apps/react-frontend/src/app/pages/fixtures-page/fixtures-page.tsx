@@ -3,14 +3,15 @@ import FixtureTable, { FixtureTableRow } from '../../fixture-table/fixture-table
 import './fixtures-page.module.scss';
 import ApiService from '../../apis/api-service';
 import { useEffect, useState } from 'react';
-import { convertFixturesToFixturesRows } from './utils';
+import { convertFixturesToFixturesRows, convertFixtureseResponseToFixtures } from './utils';
+import { Fixture } from '../../interfaces/fixture';
 
 /* eslint-disable-next-line */
 export interface FixturesPageProps {}
 
 
 export function FixturesPage(props: FixturesPageProps) {
-  const [fixtures, setFixtures] = useState<FixtureTableRow[]>([])
+  const [fixtures, setFixtures] = useState<any[]>([])
 
   useEffect(() => {
     fetchFixtures()
@@ -22,21 +23,25 @@ export function FixturesPage(props: FixturesPageProps) {
     ApiService
       .fetchFixtures()
       .then((response: any) => {
-        console.log('response', response);
-        setFixtures(convertFixturesToFixturesRows(response.data))
+        debugger
+        const rows: any[] = []
+        // const rows = convertFixturesToFixturesRows(convertFixtureseResponseToFixtures(response.data, response.included))
+        // console.log('fixtureRows', rows.slice(0, 5));
+        // console.log('fixtures', convertFixtureseResponseToFixtures(response.data, response.included));
+        setFixtures(rows)
       });
   }
   return (
     <div>
-      <Tag closable>
+      {/* <Tag closable>
         team contains barcelona
-      </Tag>
+      </Tag> */}
 
       <br />
       <Input  style={{ width: 120 }} placeholder="search" />
       <br/>
 
-        <Button type="primary">Add filter</Button>
+        {/* <Button type="primary">Add filter</Button> */}
         <FixtureTable fixtures={fixtures} />
     </div>
   );

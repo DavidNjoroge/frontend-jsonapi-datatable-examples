@@ -22,7 +22,7 @@ function create({subject, content}: any): Promise<any> {
 
 function fetchFixtures(): Promise<JsonapiResponse> {
   return request({
-    url:    '/jsonapi/fixtures',
+    url:    '/jsonapi/fixtures?include=home.team,away.team',
     method: 'GET',
   });
 }

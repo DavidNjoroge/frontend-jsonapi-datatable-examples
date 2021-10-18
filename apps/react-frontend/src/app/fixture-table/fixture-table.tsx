@@ -1,13 +1,13 @@
 import { Table } from 'antd';
 import { useState } from 'react';
+import { Fixture } from '../interfaces/fixture';
 import './fixture-table.module.scss';
 
 
 export interface FixtureTableRow {
   id: number;
-  key: number;
   away_score?: string;
-  fixture_date: string;
+  fixture_date?: string;
   fixture_time?: string;
   home_score?: string;
   match_week?: string;
@@ -17,7 +17,7 @@ export interface FixtureTableRow {
 }
 
 export interface FixtureTableProps {
-  fixtures?: FixtureTableRow[]
+  fixtures?: Fixture[]
 }
 
 export function FixtureTable(props: FixtureTableProps) {
@@ -40,7 +40,7 @@ export function FixtureTable(props: FixtureTableProps) {
     },
     {
       title: 'Home Name',
-      dataIndex: 'home_id',
+      dataIndex: 'homeName',
     },
     {
       title: 'Home Score',
@@ -52,7 +52,7 @@ export function FixtureTable(props: FixtureTableProps) {
     },
     {
       title: 'Away Name',
-      dataIndex: 'away_id',
+      dataIndex: 'awayName',
     },
   ];
 
@@ -99,7 +99,7 @@ export function FixtureTable(props: FixtureTableProps) {
   };
 
   return (
-    <Table rowSelection={rowSelection} columns={columns} dataSource={props.fixtures} />
+    <Table rowKey="id" rowSelection={rowSelection} columns={columns} dataSource={props.fixtures} />
   );
 }
 

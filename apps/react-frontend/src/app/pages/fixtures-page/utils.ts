@@ -14,3 +14,8 @@ export function convertFixturesToFixturesRows(fixturesObjects: JsonapiModelRespo
     fixture_date: obj.attributes.fixture_date
   }))
 }
+
+export function convertFixtureseResponseToFixtures() {
+
+}
+
