@@ -1,5 +1,7 @@
+import qs from "qs";
 import { FixtureTableRow } from "../../fixture-table/fixture-table";
 import { JsonapiModelResponse } from "../../interfaces/jsonapi-response";
+import { PageParams } from "../../utils/url-params-util";
 
 
 export function convertFixturesToFixturesRows(fixturesObjects: JsonapiModelResponse[]): FixtureTableRow[] {
@@ -40,3 +42,8 @@ export function convertFixtureResponseToFixtures(fixturesResponse: any[], includ
 
 }
 
+export function convertSearchToRouteParams(search: string) {
+  return qs.parse(search, {
+    ignoreQueryPrefix: true,
+  }) as unknown as PageParams
+}

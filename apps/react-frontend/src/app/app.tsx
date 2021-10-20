@@ -15,18 +15,6 @@ const client = axios.create({
 export function App() {
   const { Header, Content, Footer } = Layout;
 
-  useEffect(() => {
-    // fetchFixtures()
-  }, [])
-
-  const fetchFixtures = () => {
-    ApiService
-      .fetchFixtures()
-      .then((response: any) => {
-        console.log('response', response);
-      });
-    }
-
   return (
     <div className={styles.app}>
       <Layout className="layout">

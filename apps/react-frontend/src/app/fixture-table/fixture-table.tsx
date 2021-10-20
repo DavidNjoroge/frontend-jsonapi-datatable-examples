@@ -1,6 +1,10 @@
-import { Table } from 'antd';
+import { Pagination, Table } from 'antd';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Fixture } from '../interfaces/fixture';
+import { JsonapiResponse } from '../interfaces/jsonapi-response';
+import { UrlParamsUtil } from '../utils/url-params-util';
+import { fixtureColumns } from './fixture-columns';
 import './fixture-table.module.scss';
 
 
@@ -18,44 +22,20 @@ export interface FixtureTableRow {
 
 export interface FixtureTableProps {
   fixtures?: Fixture[]
+  fixturesResponse?: JsonapiResponse
+  currentPageNumber?: number
 }
 
 export function FixtureTable(props: FixtureTableProps) {
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>()
-  const columns = [
-    {
-      title: 'Fixture Date',
-      dataIndex: 'fixture_date',
-      filters: [
-        {
-          text: 'Edward King 0',
-          value: 'Edward King 0',
-        },
-      ],
-          // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    onFilter: (value: any, record: any) => record.name.indexOf(value) === 0,
-    // sorter: (a: any, b: any) => a.name.length - b.name.length,
-    // sortDirections: ['descend'],
-    },
-    {
-      title: 'Home Name',
-      dataIndex: 'homeName',
-    },
-    {
-      title: 'Home Score',
-      dataIndex: 'home_score',
-    },
-    {
-      title: 'Away Score',
-      dataIndex: 'away_score',
-    },
-    {
-      title: 'Away Name',
-      dataIndex: 'awayName',
-    },
-  ];
 
+  const history = useHistory()
+  const urlParamsUtil = new UrlParamsUtil(history)
+
+  const onTablePaginationChange = (page: number, pageSize?: number) => {
+    console.log('onTablePaginationChange: ', page, pageSize);
+    urlParamsUtil.updatePageParams({page, pageSize})
+  };
   const onSelectChange = (selectedRowKeys: any) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
     setSelectedRowKeys(selectedRowKeys);
@@ -99,7 +79,10 @@ export function FixtureTable(props: FixtureTableProps) {
   };
 
   return (
-    <Table rowKey="id" rowSelection={rowSelection} columns={columns} dataSource={props.fixtures} />
+    <div>
+      <Table  rowKey="id" rowSelection={rowSelection} columns={fixtureColumns} dataSource={props.fixtures} pagination={false} />
+      <Pagination onChange={onTablePaginationChange} current={props.currentPageNumber} total={props.fixturesResponse?.meta.count} />
+    </div>
   );
 }
 

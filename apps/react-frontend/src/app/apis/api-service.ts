@@ -20,9 +20,9 @@ function create({subject, content}: any): Promise<any> {
   });
 }
 
-function fetchFixtures(): Promise<JsonapiResponse> {
+function fetchFixtures(pageNumber: any, pagesize: any): Promise<JsonapiResponse> {
   return request({
-    url:    '/jsonapi/fixtures?include=home.team,away.team',
+    url:    `/jsonapi/fixtures?include=home.team,away.team&page[number]=${pageNumber}&page[size]=${pagesize}`,
     method: 'GET',
   });
 }
