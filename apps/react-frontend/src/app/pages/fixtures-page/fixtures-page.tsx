@@ -3,8 +3,9 @@ import FixtureTable, { FixtureTableRow } from '../../fixture-table/fixture-table
 import './fixtures-page.module.scss';
 import ApiService from '../../apis/api-service';
 import { useEffect, useState } from 'react';
-import { convertFixturesToFixturesRows, convertFixtureseResponseToFixtures } from './utils';
+import { convertFixturesToFixturesRows, convertFixtureResponseToFixtures } from './utils';
 import { Fixture } from '../../interfaces/fixture';
+import { JsonapiResponse } from '../../interfaces/jsonapi-response';
 
 /* eslint-disable-next-line */
 export interface FixturesPageProps {}
@@ -22,11 +23,10 @@ export function FixturesPage(props: FixturesPageProps) {
   const fetchFixtures = () => {
     ApiService
       .fetchFixtures()
-      .then((response: any) => {
-        debugger
-        const rows: any[] = []
-        // const rows = convertFixturesToFixturesRows(convertFixtureseResponseToFixtures(response.data, response.included))
-        // console.log('fixtureRows', rows.slice(0, 5));
+      .then((response: JsonapiResponse) => {
+        // const rows: any[] = []
+        const rows = convertFixturesToFixturesRows(convertFixtureResponseToFixtures(response.data, response.included || []))
+        console.log('fixtureRows', rows.slice(0, 5));
         // console.log('fixtures', convertFixtureseResponseToFixtures(response.data, response.included));
         setFixtures(rows)
       });
