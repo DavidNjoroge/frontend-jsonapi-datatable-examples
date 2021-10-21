@@ -1,9 +1,9 @@
 import { Pagination, Table } from 'antd';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Fixture } from '../interfaces/fixture';
-import { JsonapiResponse } from '../interfaces/jsonapi-response';
-import { UrlParamsUtil } from '../utils/url-params-util';
+import { Fixture } from '../../../interfaces/fixture';
+import { JsonapiResponse } from '../../../interfaces/jsonapi-response';
+import { UrlParamsUtil } from '../../../utils/url-params-util';
 import { fixtureColumns } from './fixture-columns';
 import './fixture-table.module.scss';
 

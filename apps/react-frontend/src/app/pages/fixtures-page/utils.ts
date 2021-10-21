@@ -1,5 +1,5 @@
 import qs from "qs";
-import { FixtureTableRow } from "../../fixture-table/fixture-table";
+import { FixtureTableRow } from "./fixture-table/fixture-table";
 import { JsonapiModelResponse } from "../../interfaces/jsonapi-response";
 import { PageParams } from "../../utils/url-params-util";
 

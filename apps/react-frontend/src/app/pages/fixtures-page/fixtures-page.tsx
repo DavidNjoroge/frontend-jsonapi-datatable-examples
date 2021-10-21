@@ -1,4 +1,4 @@
-import FixtureTable, { FixtureTableRow } from '../../fixture-table/fixture-table';
+import FixtureTable, { FixtureTableRow } from './fixture-table/fixture-table';
 import './fixtures-page.module.scss';
 import ApiService from '../../apis/api-service';
 import { useEffect, useState } from 'react';
