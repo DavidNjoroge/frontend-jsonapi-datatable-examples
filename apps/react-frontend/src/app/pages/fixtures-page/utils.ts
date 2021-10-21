@@ -47,3 +47,38 @@ export function convertSearchToRouteParams(search: string) {
     ignoreQueryPrefix: true,
   }) as unknown as PageParams
 }
+
+
+export function fixtureSearchQuery(search: string) {
+  const filter = [{or: [
+    {
+      "name": "away",
+      "op": "has",
+      "val": {
+        "name": "team",
+        "op": "has",
+        "val": {
+          "name": "name",
+          "op": "ilike",
+          "val": `%${search}%`
+        }
+      }
+    },
+    {
+      "name": "home",
+      "op": "has",
+      "val": {
+        "name": "team",
+        "op": "has",
+        "val": {
+          "name": "name",
+          "op": "ilike",
+          "val": `%${search}%`
+        }
+      }
+    }
+  ]
+}
+]
+  return filter
+}

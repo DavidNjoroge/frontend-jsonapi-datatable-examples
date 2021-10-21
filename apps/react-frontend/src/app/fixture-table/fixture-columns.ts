@@ -4,12 +4,12 @@ export const fixtureColumns = [
   {
     title: 'Fixture Date',
     dataIndex: 'fixture_date',
-    filters: [
-      {
-        text: 'Edward King 0',
-        value: 'Edward King 0',
-      },
-    ],
+    // filters: [
+    //   {
+    //     text: 'Edward King 0',
+    //     value: 'Edward King 0',
+    //   },
+    // ],
         // specify the condition of filtering result
   // here is that finding the name started with `value`
   onFilter: (value: any, record: any) => record.name.indexOf(value) === 0,

@@ -1,7 +1,8 @@
 import * as H from 'history'
 import * as qs from 'qs'
-const DEFAULT_PAGE = 0
-const DEFAULT_PAGE_SIZE = 20
+
+export const DEFAULT_PAGE = 1
+export const DEFAULT_PAGE_SIZE = 10
 
 export interface PageParams {[key: string]: string | number}
 
