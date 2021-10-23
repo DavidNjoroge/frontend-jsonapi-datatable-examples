@@ -1,4 +1,4 @@
-import FixtureTable, { FixtureTableRow } from './fixture-table/fixture-table';
+import { FixtureTableRow } from './fixture-table/fixture-table';
 import './fixtures-page.module.scss';
 import ApiService from '../../apis/api-service';
 import { useEffect, useState } from 'react';
@@ -7,6 +7,8 @@ import { JsonapiResponse } from '../../interfaces/jsonapi-response';
 import { useHistory } from 'react-router-dom';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, UrlParamsUtil } from '../../utils/url-params-util';
 import Search from 'antd/lib/input/Search';
+import { Pagination, Table } from 'antd';
+import { fixtureColumns } from './fixture-table/fixture-columns';
 
 /* eslint-disable-next-line */
 export interface FixturesPageProps {}
@@ -22,22 +24,22 @@ export function FixturesPage(props: FixturesPageProps) {
 
   useEffect(() => {
     initializePageParams()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    onPageParamsChange(convertSearchToRouteParams(history.location.search))
+    onPageParamsChange(history.location.search)
   }, [history.location.search])
 
   const initializePageParams = () => {
     const params = convertSearchToRouteParams(history.location.search)
 
     if (!params.page) {
-      urlParamsUtil.updatePageParams({page: 1, pageSize: 20})
+      urlParamsUtil.updatePageParams({page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE})
     }
   }
 
-  const onPageParamsChange = (pageParams: any): void => {
+  const onPageParamsChange = (pageParamsSearch: string): void => {
+    const pageParams: any = convertSearchToRouteParams(pageParamsSearch)
     setCurrentPageNumber(parseInt(pageParams.page))
     const apiParams: any = {}
 
@@ -56,7 +58,7 @@ export function FixturesPage(props: FixturesPageProps) {
     fetchFixtures(apiParams)
   }
   const onSearch = (value: any) => {
-    urlParamsUtil.updatePageParams({searchQuery: value, page: 1, pageSize: 20})
+    urlParamsUtil.updatePageParams({searchQuery: value, page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE})
   }
 
   const fetchFixtures = (pageParams: any,) => {
@@ -67,6 +69,11 @@ export function FixturesPage(props: FixturesPageProps) {
       setFixtures(convertFixturesToFixturesRows(convertFixtureResponseToFixtures(response.data, response.included || [])))
     });
   }
+
+  const onTablePaginationChange = (page: number, pageSize?: number) => {
+    urlParamsUtil.updatePageParams({page, pageSize})
+  };
+
   return (
     <div>
       {/* <Tag closable>
@@ -75,7 +82,8 @@ export function FixturesPage(props: FixturesPageProps) {
 
       <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
 
-      <FixtureTable fixtures={fixtures} fixturesResponse={fixturesResponse} currentPageNumber={currentPageNumber} />
+      <Table  rowKey="id" columns={fixtureColumns} dataSource={fixtures} pagination={false} />
+      <Pagination onChange={onTablePaginationChange} current={currentPageNumber} total={fixturesResponse?.meta.count} />
 
     </div>
   );

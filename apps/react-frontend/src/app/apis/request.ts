@@ -1,5 +1,6 @@
 
 import axios, { AxiosRequestConfig }     from 'axios'
+import { environment } from '../../environments/environment';
 // import constants from 'shared/constants'
 
 
@@ -8,7 +9,7 @@ import axios, { AxiosRequestConfig }     from 'axios'
  * Create an Axios Client with defaults
  */
 const client = axios.create({
-  baseURL: 'http://localhost:5001',
+  baseURL: environment.backendUrl,
   headers: {
     'Content-Type': 'application/vnd.api+json',
     'Accept': 'application/vnd.api+json'

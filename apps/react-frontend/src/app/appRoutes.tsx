@@ -5,7 +5,7 @@ import { FixturesPage } from './pages/fixtures-page/fixtures-page';
 
 const appRoutes = [
   {
-    navName: 'fixtures',
+    navName: 'Fixtures',
     path: '/fixtures',
     component: FixturesPage,
   },

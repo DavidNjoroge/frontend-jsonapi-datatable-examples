@@ -36,8 +36,10 @@ export function FixtureTable(props: FixtureTableProps) {
 
   return (
     <div>
+
       <Table  rowKey="id" columns={fixtureColumns} dataSource={props.fixtures} pagination={false} />
       <Pagination onChange={onTablePaginationChange} current={props.currentPageNumber} total={props.fixturesResponse?.meta.count} />
+
     </div>
   );
 }
