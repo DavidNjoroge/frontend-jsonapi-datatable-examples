@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 /**
  * Create an Axios Client with defaults
  */
-const client = axios.create({
+export const axiosClient = axios.create({
   baseURL: environment.backendUrl,
   headers: {
     'Content-Type': 'application/vnd.api+json',
@@ -46,7 +46,7 @@ const request = function(options: AxiosRequestConfig<any>) {
     return Promise.reject(error.response || error.message);
   }
 
-  return client(options)
+  return axiosClient(options)
             .then(onSuccess)
             .catch(onError);
 }

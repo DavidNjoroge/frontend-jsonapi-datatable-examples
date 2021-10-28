@@ -1,18 +1,15 @@
 import { Layout, Menu } from 'antd';
-import axios from 'axios';
-import { useEffect } from 'react';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
-import ApiService from './apis/api-service';
+import { useAxiosLoader } from './apis/axios-loader';
+import { axiosClient } from './apis/request';
 import styles from './app.module.scss';
 import appRoutes from './appRoutes';
-import { FixturesPage } from './pages/fixtures-page/fixtures-page';
+import PageApiLoader from './page-api-loader';
 
-
-const client = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/posts"
-});
 
 export function App() {
+  const loading = useAxiosLoader(axiosClient)
+
   const { Header, Content, Footer } = Layout;
 
   return (
@@ -33,6 +30,8 @@ export function App() {
           }
       </Menu>
     </Header>
+    {loading ? <PageApiLoader/> : ''}
+
     <Content
       style={{
         margin: '24px 16px',
